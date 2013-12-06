@@ -1,0 +1,6 @@
+<?php /*
+
+[IndexExclude]
+ClassIdentifierList[]=storage
+
+*/ ?>

@@ -1,0 +1,96 @@
+div.class-sharedashboard
+{
+    width: auto; /* This can be changed to any fixed width if desired */
+    margin: 0 auto 0 auto; /* General method for centering content if fixed page width, for other browsers than IE */
+    text-align: left; /* Reset IE method for centering page, to stop all other content on the page from centering */
+}
+
+div.columns-sharedashboard
+{
+    padding: 0 17em 0 0;
+}
+
+div.main-column-position
+{
+    width: 100%;
+    float: left;
+}
+
+div.noextrainfo div.main-column
+{
+    margin-right: 0;
+}
+
+div.extrainfo-column-position
+{
+    width: 17em;
+    margin-right: -17em;
+    float: left;
+}
+
+div.columns-sharedashboard div.main-column
+{
+    margin: 0 0.25em 0 0; /* Space between main and other columns */
+}
+
+
+div.class-sharedashboard div.odd 
+{
+    background-color: #EFEFEF;
+}
+
+div.class-sharedashboard div.col-content-design 
+{
+    color: #000000;
+    font-size: 1.1em;
+    line-height: 1.35em;
+    padding: 10px;
+}
+
+div.dasboardline-content
+{
+	float:left;
+	width:60%;
+}
+
+div.dashboardline-action
+{
+	float:left;
+	width:40%;
+}
+
+div.dashboardline-action-design
+{
+	padding:10px;
+}
+
+div.pagenavigator
+{
+    clear: both;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.pagenavigator span.previous
+{
+    float: left;
+}
+
+div.pagenavigator span.next
+{
+    float: right;
+}
+
+ul.nobullet,
+ul.nobullet li
+{
+    list-style:none;
+    background:none;
+    padding-left:0;
+}
+
+div.class-sharedashboard .distance
+{
+    margin-top: 2em;
+}
