@@ -21,6 +21,12 @@ abstract class OCSCAbstractSource
     public function setStorages( array $storagesNodes )
     {        
         $this->storages = $storagesNodes;
+        $this->locations = array();
+    }
+    
+    public function getStorages()
+    {        
+        return $this->storages;
     }
     
     public function getLocationsByClass( $classIdentifier )
@@ -55,7 +61,7 @@ abstract class OCSCAbstractSource
             return false;
         }
         
-        $forceUser = $this->getSourceUser;
+        $forceUser = $this->getSourceUser();
         if ( $forceUser instanceof eZUser )
         {
             if ( $forceUser->attribute( 'contentobject_id' ) == $userObject->attribute( 'contentobject_id' ) )
@@ -266,7 +272,7 @@ abstract class OCSCAbstractSource
             }
             
             if ( !$storage instanceof eZContentObjectTreeNode ||
-                 !eZContentCLass::fetchByIdentifier( $classIdentifier ) )
+                 !eZContentClass::fetchByIdentifier( $classIdentifier ) )
             {
                 continue;
             }
@@ -274,7 +280,7 @@ abstract class OCSCAbstractSource
             $sourceIdentifer = $this->getSourceIdentifier();
             if ( isset( $data[$storageID][$sourceIdentifer][$classIdentifier]['locations'] ) )
             {
-                $locations = $data[$storageID][$sourceIdentifer][$classIdentifier]['locations'];
+                $locations = array_merge( $locations, $data[$storageID][$sourceIdentifer][$classIdentifier]['locations'] );
             }
         }
         return array_unique( $locations );

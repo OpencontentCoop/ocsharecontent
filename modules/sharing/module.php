@@ -63,6 +63,13 @@ $ViewList['filters'] = array(
     )
 );
 
+$ViewList['test'] = array(
+    'functions' => array( 'dashboard' ),
+    'script' => 'test.php',
+    'default_navigation_part' => 'ezcontentnavigationpart',
+    'params' => array( 'ObjectID' )
+);
+
 
 $FunctionList = array();
 $FunctionList['dashboard'] = array();

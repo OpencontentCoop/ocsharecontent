@@ -16,26 +16,26 @@
                     <td>
                        <p>{$class.class_name} ({$class.class_identifier})</p>
                     </td>                    
-                    <td>
-                        {if count( $class.locations )|gt(0)}
+                    <td>                        
                         <form action={concat( 'sharing/filters/', $source.identifier, '/', $class.class_identifier )|ezurl()} name="selectLcations" method="post">
-                            {foreach $class.locations as $location}
-                                {def $locationNode = fetch( content, node, hash( 'node_id', $location ))}
-                                <p>
-                                    {if $storages|contains($location)}
-                                    <a href={$locationNode.url_alias|ezurl}><strong>{$locationNode.name|wash()} ({$location})</strong></a>
-                                    {else}
-                                    <input type="checkbox" name="SelectedLocation[]" value="{$location}" />
-                                    <a href={$locationNode.url_alias|ezurl}>{$locationNode.name|wash()} ({$location})</a>                                    
-                                    {/if}
-                                    
-                                </p>
-                                {undef $locationNode}
-                            {/foreach}                        
-                            <input class="button" type="submit" name="RemoveLocationButton" value="{'Rimuovi selezionate'|i18n('ocsharecontent')}" />
+                            {if count( $class.locations )|gt(0)}
+                                {foreach $class.locations as $location}
+                                    {def $locationNode = fetch( content, node, hash( 'node_id', $location ))}
+                                    <p>
+                                        {if $storages|contains($location)}
+                                        <a href={$locationNode.url_alias|ezurl}><strong>{$locationNode.name|wash()} ({$location})</strong></a>
+                                        {else}
+                                        <input type="checkbox" name="SelectedLocation[]" value="{$location}" />
+                                        <a href={$locationNode.url_alias|ezurl}>{$locationNode.name|wash()} ({$location})</a>                                    
+                                        {/if}
+                                        
+                                    </p>
+                                    {undef $locationNode}
+                                {/foreach}                        
+                                <input class="button" type="submit" name="RemoveLocationButton" value="{'Rimuovi selezionate'|i18n('ocsharecontent')}" />                        
+                            {/if}
                             <input class="button" type="submit" name="AddLocationButton" value="{'Aggiungi'|i18n('ocsharecontent')}" />
                         </form>
-                        {/if}
                     </td>
                     <td>                        
                         <form action={concat( 'sharing/filters/', $source.identifier, '/', $class.class_identifier )|ezurl()} name="selectLcations" method="post">

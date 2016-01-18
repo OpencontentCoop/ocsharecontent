@@ -46,22 +46,18 @@ class eZShareContentType extends eZWorkflowEventType
             
             // cerco le collocazioni automatiche definite in sharecontent/filters
             $locations = array();
-            foreach( $sources as $source )
+            foreach( $storageNodes as $storageNode )
             {
-                $source->setStorages( $storageNodes );
-                if ( array_key_exists( $object->attribute( 'class_identifier' ), $source->getAvailableClassIdentifiers() ) )
+                foreach( $sources as $source )
                 {
-                    if ( $source->runForUser( $object->attribute( 'owner_id' ), $object->attribute( 'class_identifier' ) ) )
+                    $source->setStorages( array( $storageNode ) );
+                    if ( array_key_exists( $object->attribute( 'class_identifier' ), $source->getAvailableClassIdentifiers() ) )
                     {
-                        $locationsByObject = $source->getLocationsByObject( $object );
-                        eZDebug::writeNotice( var_export($locationsByObject,1), __METHOD__ );
-                        if ( is_array( $locationsByObject ) )
+                        if ( $source->runForUser( $object->attribute( 'owner_id' ), $object->attribute( 'class_identifier' ) ) )
                         {
-                            $locations = array_merge( $locations, $locationsByObject );    
-                        }
-                        else
-                        {
-                            $locations = array_merge( $locations, $source->getLocationsByClass( $object->attribute( 'class_identifier' ) ) );
+                            $locationsByObject = $source->getLocationsByObject( $object );
+                            $locationsByClass = $source->getLocationsByClass( $object->attribute( 'class_identifier' ) );
+                            $locations = array_merge( $locations, $locationsByObject, $locationsByClass );
                         }
                     }
                 }
@@ -84,7 +80,12 @@ class eZShareContentType extends eZWorkflowEventType
                 if ( !empty( $addLocations ) )
                 {                
                     $newMainNodeId = array_pop( $addLocations );                
-                    eZContentOperationCollection::moveNode( $object->attribute( 'main_node_id' ), $object->attribute( 'id' ), $newMainNodeId );                
+                    eZContentOperationCollection::moveNode( $object->attribute( 'main_node_id' ), $object->attribute( 'id' ), $newMainNodeId );
+                    $newMainNode = eZContentObjectTreeNode::fetch( $newMainNodeId );
+                    if ( $newMainNode instanceof eZContentObjectTreeNode )
+                    {
+                        eZContentCacheManager::clearContentCacheIfNeeded( $newMainNode->attribute( 'contentobject_id' ) );
+                    }
                     if ( !empty( $addLocations ) )
                     {
                         eZContentOperationCollection::addAssignment( $object->attribute( 'main_node_id' ), $object->attribute( 'id' ), $addLocations );                
