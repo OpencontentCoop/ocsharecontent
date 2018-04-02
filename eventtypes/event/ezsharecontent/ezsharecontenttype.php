@@ -3,9 +3,9 @@
 class eZShareContentType extends eZWorkflowEventType
 {
     const WORKFLOW_TYPE_STRING = "ezsharecontent";
-	function eZShareContentType()
+	function __construct()
     {
-        $this->eZWorkflowEventType( eZShareContentType::WORKFLOW_TYPE_STRING, ezpI18n::tr( 'ocsharecontent', 'Share content workflow' ) );
+        parent::__construct( eZShareContentType::WORKFLOW_TYPE_STRING, ezpI18n::tr( 'ocsharecontent', 'Share content workflow' ) );
         $this->setTriggerTypes( array( 'content' => array( 'publish' => array( 'after' ) ) ) );
     }
 
