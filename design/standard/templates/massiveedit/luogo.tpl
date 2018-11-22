@@ -52,7 +52,7 @@ $(function() {
 
 {def $search_text = ''}
 {if ezhttp_hasvariable( 'SearchText', 'get' )}
-    {set $search_text = ezhttp( 'SearchText', 'get' )}
+    {set $search_text = ezhttp( 'SearchText', 'get' )|wash()}
 {/if}
 
 {def $activeFacetParameters = array()
